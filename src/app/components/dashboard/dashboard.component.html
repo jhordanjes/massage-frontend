@@ -1,0 +1,106 @@
+<main class="min-h-screen bg-zinc-800">
+  <app-header-default></app-header-default>
+
+  <section class="max-w-5xl mx-auto mt-10 p-3 flex">
+    <div class="w-full">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-white text-2xl lg:text-3xl font-bold">
+            Scheduled times
+          </h1>
+          <p class="text-sky-500 font-semibold">
+            {{ selectedDate.dateFormatted }}
+          </p>
+        </div>
+
+        <a [routerLink]="['/schedule']" class="btn-default">
+          <span class="mr-2 hidden lg:block">Schedule</span>
+          <fa-icon [icon]="faCalendar"></fa-icon>
+        </a>
+      </div>
+
+      <ul
+        class="flex pl-50 lg:pl-0 justify-center my-8 max-w-full overflow-x-scroll lg:overflow-hidden"
+      >
+        <li *ngFor="let item of daysOfWeek">
+          <button
+            type="button"
+            class="btn-item-day"
+            [disabled]="!item.isAvailable"
+            (click)="getSchedule(item.date)"
+          >
+            <span class="block font-bold">{{ item.shorten }}</span>
+            <small class="text-white/95">{{ item.numeric }}</small>
+          </button>
+        </li>
+      </ul>
+
+      <div class="mt-12">
+        <div
+          class="mt-5 lg:mt-8 flex items-center"
+          *ngFor="let schedule of schedulesSelected"
+        >
+          <span class="text-white/70 mr-3">
+            <fa-icon [icon]="faClock" class="text-sky-300 mr-1"></fa-icon>
+            {{ schedule.hour }}
+          </span>
+
+          <div
+            class="bg-zinc-700 rounded-md p-2 lg:py-3 lg:px-5 flex items-center flex-1 relative justify-between"
+          >
+            <div
+              *ngIf="schedule.status"
+              [ngClass]="
+                schedule.status === 'Next appointment'
+                  ? 'w-0.5 h-14 bg-rose-500 absolute left-0 rounded-md'
+                  : 'w-0.5 h-14 bg-sky-500 absolute left-0 rounded-md'
+              "
+            ></div>
+            <div class="flex items-center">
+              <img
+                [src]="
+                  'https://api.multiavatar.com/' +
+                  schedule.user.name +
+                  '.svg?apiKey=ucXVwgjE72RQ3G'
+                "
+                class="rounded-full h-16 w-16"
+              />
+
+              <div class="ml-3">
+                <strong class="block text-white/95">{{
+                  schedule.user.name
+                }}</strong>
+                <span
+                  *ngIf="schedule.status"
+                  [ngClass]="
+                    schedule.status === 'Next appointment'
+                      ? 'text-rose-500 text-sm font-bold'
+                      : 'text-sky-500 text-sm font-bold'
+                  "
+                  >{{ schedule.status }}</span
+                >
+              </div>
+            </div>
+
+            <button
+              type="button"
+              (click)="cancelAppointment(schedule._id)"
+              class="text-sm text-zinc-400 hover:text-zinc-50"
+              *ngIf="currentUser._id === schedule.user._id"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="!schedulesSelected.length"
+        class="text-md p-3 border-2 rounded-md bg-zinc-900 shadow-zinc-950 border-zinc-700 text-zinc-400"
+      >
+        <fa-icon [icon]="faTriangleExclamation"></fa-icon>
+        <span class="ml-2">No appointment found this day.</span>
+      </div>
+    </div>
+  </section>
+</main>

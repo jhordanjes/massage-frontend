@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-item-day {
+    @apply border-2 rounded-md w-28 p-2 text-white/70 border-white/90 mx-2 hover:bg-zinc-950 bg-zinc-800 ease-in-out duration-300;
+  }
+
+  .box-input {
+    @apply w-full relative h-12 text-zinc-50 bg-zinc-900 hover:bg-zinc-950 duration-300 ease-linear px-3 rounded-md border border-transparent;
+  }
+
+  .box-input-error {
+    @apply border-red-700;
+  }
+
+  .btn-default {
+    @apply bg-sky-600 hover:bg-sky-700 ease-out duration-500 py-3 px-4 rounded-md text-white flex items-center justify-center;
+  }
+
+  .btn-hour-schedule {
+    @apply bg-zinc-900 px-4 py-2 text-zinc-100 rounded-md hover:bg-zinc-600 ease-out duration-500;
+  }
+}
+
+[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+input {
+  outline: none;
+}

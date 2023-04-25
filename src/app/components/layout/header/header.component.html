@@ -1,0 +1,36 @@
+<header class="bg-zinc-900 px-3 py-7">
+  <div class="max-w-5xl mx-auto flex justify-between items-center">
+    <a
+      routerLink="/dashboard"
+      class="text-xl lg:text-2xl text-sky-400 font-semibold"
+      >Sidi
+      <span
+        class="bg-sky-400 py-1 border-l text-white rounded-tl-full rounded-br-full border-sky-400"
+        >Massage</span
+      ></a
+    >
+
+    <div class="text-white flex items-center">
+      <a routerLink="/profile" class="flex items-center mr-2 lg:mr-3">
+        <img
+          [src]="
+            'https://api.multiavatar.com/' + name + '.svg?apiKey=ucXVwgjE72RQ3G'
+          "
+          class="rounded-full h-14 w-14 mr-1 hidden lg:block"
+        />
+        <div>
+          <span class="block text-sm">Bem vindo,</span>
+          <strong class="text-sky-500">{{ name }}</strong>
+        </div>
+      </a>
+
+      <button
+        type="button"
+        (click)="logout()"
+        class="ml-2 text-white/40 text-xl hover:text-white/80 ease-in-out duration-300"
+      >
+        <fa-icon [icon]="faPowerOff"></fa-icon>
+      </button>
+    </div>
+  </div>
+</header>

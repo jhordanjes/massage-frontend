@@ -1,0 +1,59 @@
+<main class="min-h-screen bg-zinc-800">
+  <app-header-default></app-header-default>
+
+  <section class="max-w-5xl mx-auto mt-5 lg:mt-10 p-3 flex">
+    <div class="w-full">
+      <a
+        [routerLink]="['/dashboard']"
+        class="mb-5 flex items-center text-zinc-400 hover:text-zinc-200 ease-out duration-500"
+      >
+        <fa-icon [icon]="faChevronLeft" class="text-xl"></fa-icon>
+        <span class="ms-2 text-sm">Back to schedule list</span>
+      </a>
+
+      <h1 class="text-white text-3xl font-bold">Available times</h1>
+      <h5 class="text-zinc-400">Choose a time for your massage</h5>
+
+      <div class="mt-10">
+        <h3 class="text-sky-400 text-xl">{{ dateFormatted }}</h3>
+
+        <div class="w-100 h-px bg-zinc-700 mt-3"></div>
+
+        <ul class="flex flex-wrap mt-3">
+          <li class="mr-3 mt-1" *ngFor="let schedule of schedulesAvailable">
+            <button
+              type="button"
+              (click)="selectHour(schedule.hour)"
+              [ngClass]="
+                schedule.hour === selectedHour
+                  ? 'btn-hour-schedule bg-sky-500'
+                  : 'btn-hour-schedule'
+              "
+            >
+              {{ schedule.hour }}
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <button
+        type="button"
+        [disabled]="spinnerService.visibility | async"
+        class="btn-default w-52 mx-auto mt-16"
+        (click)="createAppointment()"
+      >
+        Save
+
+        <div
+          *ngIf="spinnerService.visibility | async"
+          class="ml-1 inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status"
+        >
+          <span
+            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+          ></span>
+        </div>
+      </button>
+    </div>
+  </section>
+</main>

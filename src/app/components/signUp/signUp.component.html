@@ -1,0 +1,199 @@
+<div class="w-full min-h-screen flex items-stretch bg-zinc-900">
+  <img src="/assets/bg/auth.png" class="object-cover w-full h-full absolute" />
+
+  <div
+    class="flex items-center justify-center z-10 w-full max-w-5xl mx-auto p-3"
+  >
+    <div class="grid lg:grid-cols-2 gap-4 w-full">
+      <div class="lg:my-auto mb-10 text-center lg:text-start">
+        <h3 class="text-2xl lg:4xl text-sky-400 mb-5 lg:mb-10 font-semibold">
+          Sidi
+          <span
+            class="bg-sky-400 py-1 border-l text-white rounded-tl-full rounded-br-full border-sky-400"
+            >Massage</span
+          >
+        </h3>
+        <h1 class="text-2xl lg:w-10/12 lg:text-6xl text-zinc-100 font-semibold">
+          Create your account.
+        </h1>
+      </div>
+
+      <div
+        class="animate-appearFromRight w-full relative mx-auto lg:w-11/12 px-8 py-10 bg-zinc-800 rounded-md drop-shadow-xl hover:drop-shadow-2xl ease-out duration-500"
+      >
+        <div
+          class="absolute -top-3 w-11/12 h-3 left-0 right-0 bg-zinc-700 bg-opacity-50 -z-10 mx-auto rounded-tl-md rounded-tr-md"
+        ></div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div>
+            <label
+              for="registration"
+              class="text-zinc-200 text-sm ml-3 mb-1 block"
+              >Name</label
+            >
+            <div
+              [ngClass]="
+                f['name'].invalid && (f['name'].dirty || f['name'].touched)
+                  ? 'box-input box-input-error'
+                  : 'box-input'
+              "
+            >
+              <input
+                type="text"
+                placeholder="Enter your name"
+                class="h-full w-full bg-transparent"
+                formControlName="name"
+              />
+            </div>
+
+            <div
+              *ngIf="
+                f['name'].invalid && (f['name'].dirty || f['name'].touched)
+              "
+              class="text-rose-600 text-sm mt-1"
+            >
+              <div *ngIf="f['name'].getError('required')">
+                Name is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <label
+              for="registration"
+              class="text-zinc-200 text-sm ml-3 mb-1 block"
+              >E-mail</label
+            >
+            <div
+              [ngClass]="
+                f['email'].invalid && (f['email'].dirty || f['email'].touched)
+                  ? 'box-input box-input-error'
+                  : 'box-input'
+              "
+            >
+              <input
+                type="email"
+                placeholder="Enter your e-mail"
+                class="h-full w-full bg-transparent"
+                formControlName="email"
+              />
+            </div>
+
+            <div
+              *ngIf="
+                f['email'].invalid && (f['email'].dirty || f['email'].touched)
+              "
+              class="text-rose-600 text-sm mt-1"
+            >
+              <div *ngIf="f['email'].getError('required')">
+                E-mail is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <label
+              for="registration"
+              class="text-zinc-200 text-sm ml-3 mb-1 block"
+              >Username</label
+            >
+            <div
+              [ngClass]="
+                f['username'].invalid &&
+                (f['username'].dirty || f['username'].touched)
+                  ? 'box-input box-input-error'
+                  : 'box-input'
+              "
+            >
+              <input
+                type="text"
+                placeholder="Enter your username"
+                class="h-full w-full bg-transparent"
+                formControlName="username"
+              />
+            </div>
+
+            <div
+              *ngIf="
+                f['username'].invalid &&
+                (f['username'].dirty || f['username'].touched)
+              "
+              class="text-rose-600 text-sm mt-1"
+            >
+              <div *ngIf="f['username'].getError('required')">
+                Username is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <label for="password" class="text-zinc-200 text-sm ml-3 mb-1 block"
+              >Senha</label
+            >
+            <div
+              [ngClass]="
+                f['password'].invalid &&
+                (f['password'].dirty || f['password'].touched)
+                  ? 'box-input box-input-error'
+                  : 'box-input'
+              "
+            >
+              <input
+                [type]="fieldTextType ? 'text' : 'password'"
+                placeholder="Enter your password"
+                name="password"
+                id="password"
+                class="h-full w-full bg-transparent"
+                formControlName="password"
+              />
+
+              <button
+                type="button"
+                (click)="toggleFieldTextType()"
+                class="absolute right-2 top-3 text-sm text-zinc-600"
+              >
+                <fa-icon *ngIf="fieldTextType" [icon]="faEye"></fa-icon>
+                <fa-icon *ngIf="!fieldTextType" [icon]="faEyeSlash"></fa-icon>
+              </button>
+            </div>
+
+            <div
+              *ngIf="
+                f['password'].invalid &&
+                (f['password'].dirty || f['password'].touched)
+              "
+              class="text-rose-600 text-sm mt-1"
+            >
+              <div *ngIf="f['password'].getError('required')">
+                Password is required.
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            [disabled]="spinnerService.visibility | async"
+            class="bg-sky-600 hover:bg-sky-700 ease-out duration-500 py-3 w-6/12 rounded-md text-white mx-auto block mt-10"
+          >
+            Get started
+
+            <div
+              *ngIf="spinnerService.visibility | async"
+              class="ml-1 inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+              role="status"
+            >
+              <span
+                class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+              ></span>
+            </div>
+          </button>
+        </form>
+
+        <div class="text-zinc-400 mt-10 text-center">
+          Have an account?
+          <a routerLink="/" class="text-sky-500">Sign in</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
