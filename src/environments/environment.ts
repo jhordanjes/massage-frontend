@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:3003',
+  apiUrl: 'https://sidi-massage.herokuapp.com',
 };
